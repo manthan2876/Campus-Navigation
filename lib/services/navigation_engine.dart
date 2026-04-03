@@ -175,4 +175,58 @@ class NavigationEngine {
     }
     return segmentedPaths;
   }
+
+  List<String> generateTextInstructions(List<Node> path) {
+    if (path.isEmpty) return [];
+    if (path.length == 1) return ["You have arrived at your destination."];
+
+    List<String> instructions = [];
+    const distCalc = DistanceVincenty(roundResult: false);
+    
+    double accumulatedDistance = 0;
+    int currentFloor = path.first.level;
+
+    for (int i = 0; i < path.length - 1; i++) {
+      Node current = path[i];
+      Node next = path[i + 1];
+
+      // Calculate distance to next node
+      double distToNext = distCalc.as(LengthUnit.Meter, current.coords, next.coords);
+      accumulatedDistance += distToNext;
+
+      // Check for level changes (Elevators/Stairs)
+      if (current.level != next.level) {
+        if (accumulatedDistance > 5) {
+          instructions.add("Walk straight for ${accumulatedDistance.round()} meters.");
+          accumulatedDistance = 0;
+        }
+        String direction = next.level > current.level ? "up" : "down";
+        instructions.add("Take stairs/elevator $direction to Level ${next.level}.");
+        currentFloor = next.level;
+        continue;
+      }
+      
+      // If we are turning or making a significant move we can chunk distance
+      // For a simple engine, let's just group distances until a significant "bend" or indoors transition
+      bool indoorTransition = current.indoors != next.indoors;
+      if (indoorTransition) {
+        if (accumulatedDistance > 2) {
+          instructions.add("Walk for ${accumulatedDistance.round()} meters.");
+          accumulatedDistance = 0;
+        }
+        instructions.add(next.indoors ? "Enter the building." : "Exit the building.");
+      }
+
+      // Check if it's the last node
+      if (i == path.length - 2) {
+        if (accumulatedDistance > 2) {
+          instructions.add("Walk forward for ${accumulatedDistance.round()} meters to reach your destination.");
+        } else {
+          instructions.add("You are arriving at your destination.");
+        }
+      }
+    }
+    
+    return instructions;
+  }
 }

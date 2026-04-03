@@ -4,6 +4,8 @@ import 'package:latlong2/latlong.dart';
 import '../services/navigation_engine.dart';
 import '../models/navigation_models.dart';
 import '../widgets/search_bottom_sheet.dart';
+import '../widgets/directions_bottom_sheet.dart';
+import '../widgets/app_drawer.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -23,8 +25,10 @@ class _MapScreenState extends State<MapScreen> {
   int? _startId;
   int? _endId;
   
+  
   // We'll just draw the route linearly for now regardless of floor
   List<LatLng> _currentRouteCoordinates = [];
+  List<String> _currentRouteInstructions = [];
   bool _isLoading = true;
 
   @override
@@ -48,6 +52,7 @@ class _MapScreenState extends State<MapScreen> {
       if (path != null) {
         setState(() {
           _currentRouteCoordinates = path.map((node) => node.coords).toList();
+          _currentRouteInstructions = _engine.generateTextInstructions(path);
         });
         
         // Fit bounds to show the route
@@ -73,6 +78,7 @@ class _MapScreenState extends State<MapScreen> {
       _startLocationName = null;
       _endLocationName = null;
       _currentRouteCoordinates.clear();
+      _currentRouteInstructions.clear();
     });
     _mapController.move(_campusCenter, 18.0);
   }
@@ -109,6 +115,25 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 
+  void _showDirectionsDialog() {
+    if (_currentRouteInstructions.isEmpty) return;
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (context) {
+        return FractionallySizedBox(
+          heightFactor: 0.6,
+          child: DirectionsBottomSheet(
+            instructions: _currentRouteInstructions,
+            startLocation: _startLocationName ?? "Unknown",
+            endLocation: _endLocationName ?? "Unknown",
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,6 +154,7 @@ class _MapScreenState extends State<MapScreen> {
           ),
         ],
       ),
+      drawer: const AppDrawer(),
       body: _isLoading 
         ? const Center(child: CircularProgressIndicator())
         : Stack(
@@ -216,6 +242,17 @@ class _MapScreenState extends State<MapScreen> {
                               children: [
                                 Text('From: ${_startLocationName ?? "Unknown"}', style: const TextStyle(fontWeight: FontWeight.bold)),
                                 Text('To: ${_endLocationName ?? "Unknown"}', style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blue)),
+                                const SizedBox(height: 8),
+                                InkWell(
+                                  onTap: _showDirectionsDialog,
+                                  child: Row(
+                                    children: [
+                                      const Icon(Icons.list_alt, size: 16, color: Colors.orange),
+                                      const SizedBox(width: 4),
+                                      Text('View Steps', style: TextStyle(color: Colors.orange[800], fontWeight: FontWeight.bold)),
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
                           ),
