@@ -1,0 +1,77 @@
+
+{
+  "endpoints": [
+    {
+      "node_id": 159942,
+      "location": "Library Front"
+    },
+    {
+      "node_id": 134954,
+      "location": "AB1 Front"
+    },
+    {
+      "node_id": 81420,
+      "location": "AB1 Back"
+    },
+    {
+      "node_id": 105497,
+      "location": "Library North"
+    },
+    {
+      "node_id": 3,
+      "location": "AB1 215"
+    },
+    {
+      "node_id": 5,
+      "location": "AB1 216"
+    },
+    {
+      "node_id": 9,
+      "location": "AB1 200"
+    },
+    {
+      "node_id": 13,
+      "location": "AB1 212"
+    },
+    {
+      "node_id": 19,
+      "location": "AB1 213"
+    },
+    {
+      "node_id": 21,
+      "location": "AB1 214"
+    },
+    {
+      "node_id": 25,
+      "location": "AB1 211"
+    },
+    {
+      "node_id": 97,
+      "location": "AB1 209"
+    },
+    {
+      "node_id": 101,
+      "location": "AB1 208"
+    },
+    {
+      "node_id": 105,
+      "location": "AB1 206"
+    },
+    {
+      "node_id": 115,
+      "location": "AB1 204"
+    },
+    {
+      "node_id": 123,
+      "location": "AB1 203"
+    },
+    {
+      "node_id": 127,
+      "location": "AB1 202"
+    },
+    {
+      "node_id": 61,
+      "location": "IT Service"
+    }
+  ]
+}
