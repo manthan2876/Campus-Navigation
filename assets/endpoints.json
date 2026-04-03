@@ -2,35 +2,35 @@
   "endpoints": [
     {
       "location": "Main Entrance Gate",
-      "node_id": 1
+      "node_id": 119
     },
     {
       "location": "CMPICA",
-      "node_id": 2
+      "node_id": 10
     },
     {
       "location": "CSPIT - Engineering",
-      "node_id": 3
+      "node_id": 30
     },
     {
       "location": "DEPSTAR",
-      "node_id": 4
+      "node_id": 30
     },
     {
       "location": "Central Library / Admin Enclave",
-      "node_id": 5
+      "node_id": 110
     },
     {
       "location": "RPCP Pharmacy",
-      "node_id": 6
+      "node_id": 109
     },
     {
       "location": "Student Food Court",
-      "node_id": 7
+      "node_id": 9
     },
     {
       "location": "Residential Hostels",
-      "node_id": 8
+      "node_id": 79
     }
   ]
 }

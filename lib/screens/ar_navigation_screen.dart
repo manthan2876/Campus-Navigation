@@ -3,6 +3,13 @@ import 'package:ar_location_view/ar_location_view.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart' as ll;
 
+class RouteAnnotation extends ArAnnotation {
+  RouteAnnotation({
+    required super.uid,
+    required super.position,
+  });
+}
+
 class ARNavigationScreen extends StatefulWidget {
   final List<ll.LatLng> routeCoordinates;
 
@@ -13,7 +20,7 @@ class ARNavigationScreen extends StatefulWidget {
 }
 
 class _ARNavigationScreenState extends State<ARNavigationScreen> {
-  List<Annotation> annotations = [];
+  List<ArAnnotation> annotations = [];
   bool hasPermissions = false;
 
   @override
@@ -48,12 +55,12 @@ class _ARNavigationScreenState extends State<ARNavigationScreen> {
 
   void _buildAnnotations() {
     // Convert our route to AR annotations
-    List<Annotation> routeAnnotations = [];
+    List<ArAnnotation> routeAnnotations = [];
     for (int i = 0; i < widget.routeCoordinates.length; i++) {
         final point = widget.routeCoordinates[i];
         routeAnnotations.add(
-            Annotation(
-                uid: 'route_waypoint_\$i',
+            RouteAnnotation(
+                uid: 'route_waypoint_$i',
                 position: Position(
                     longitude: point.longitude,
                     latitude: point.latitude,
@@ -70,8 +77,6 @@ class _ARNavigationScreenState extends State<ARNavigationScreen> {
         );
     }
     
-    // To not clutter the screen, we might only want to show the NEXT few points,
-    // but for simple demo, we show all.
     annotations = routeAnnotations;
   }
 
@@ -94,8 +99,7 @@ class _ARNavigationScreenState extends State<ARNavigationScreen> {
       extendBodyBehindAppBar: true,
       body: ArLocationWidget(
         annotations: annotations,
-        showDistance: true,
-        annotationBuilder: (context, annotation, distance) {
+        annotationViewBuilder: (context, annotation) {
           // Floating pin design
           return Column(
             mainAxisSize: MainAxisSize.min,
@@ -110,7 +114,7 @@ class _ARNavigationScreenState extends State<ARNavigationScreen> {
                   ],
                 ),
                 child: Text(
-                  '${distance.round()}m',
+                  '${annotation.distanceFromUser.round()}m',
                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
               ),
