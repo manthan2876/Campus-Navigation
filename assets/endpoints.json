@@ -1,77 +1,36 @@
-
 {
   "endpoints": [
     {
-      "node_id": 159942,
-      "location": "Library Front"
+      "location": "Main Entrance Gate",
+      "node_id": 1
     },
     {
-      "node_id": 134954,
-      "location": "AB1 Front"
+      "location": "CMPICA",
+      "node_id": 2
     },
     {
-      "node_id": 81420,
-      "location": "AB1 Back"
+      "location": "CSPIT - Engineering",
+      "node_id": 3
     },
     {
-      "node_id": 105497,
-      "location": "Library North"
+      "location": "DEPSTAR",
+      "node_id": 4
     },
     {
-      "node_id": 3,
-      "location": "AB1 215"
+      "location": "Central Library / Admin Enclave",
+      "node_id": 5
     },
     {
-      "node_id": 5,
-      "location": "AB1 216"
+      "location": "RPCP Pharmacy",
+      "node_id": 6
     },
     {
-      "node_id": 9,
-      "location": "AB1 200"
+      "location": "Student Food Court",
+      "node_id": 7
     },
     {
-      "node_id": 13,
-      "location": "AB1 212"
-    },
-    {
-      "node_id": 19,
-      "location": "AB1 213"
-    },
-    {
-      "node_id": 21,
-      "location": "AB1 214"
-    },
-    {
-      "node_id": 25,
-      "location": "AB1 211"
-    },
-    {
-      "node_id": 97,
-      "location": "AB1 209"
-    },
-    {
-      "node_id": 101,
-      "location": "AB1 208"
-    },
-    {
-      "node_id": 105,
-      "location": "AB1 206"
-    },
-    {
-      "node_id": 115,
-      "location": "AB1 204"
-    },
-    {
-      "node_id": 123,
-      "location": "AB1 203"
-    },
-    {
-      "node_id": 127,
-      "location": "AB1 202"
-    },
-    {
-      "node_id": 61,
-      "location": "IT Service"
+      "location": "Residential Hostels",
+      "node_id": 8
     }
   ]
 }

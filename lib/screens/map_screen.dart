@@ -6,6 +6,7 @@ import '../models/navigation_models.dart';
 import '../widgets/search_bottom_sheet.dart';
 import '../widgets/directions_bottom_sheet.dart';
 import '../widgets/app_drawer.dart';
+import 'ar_navigation_screen.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -15,8 +16,8 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  // Initial center based on campus location (roughly SHSU campus as in reference)
-  final LatLng _campusCenter = const LatLng(30.71475020, -95.54687941);
+  // Initial center based on CHARUSAT University campus location
+  final LatLng _campusCenter = const LatLng(22.599589, 72.8205);
   final MapController _mapController = MapController();
   final NavigationEngine _engine = NavigationEngine();
 
@@ -267,9 +268,33 @@ class _MapScreenState extends State<MapScreen> {
                 ),
             ],
           ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showSearchDialog,
-        child: const Icon(Icons.search),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          if (_currentRouteCoordinates.isNotEmpty)
+            FloatingActionButton.extended(
+              heroTag: 'ar_mode',
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ARNavigationScreen(
+                      routeCoordinates: _currentRouteCoordinates,
+                    ),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.view_in_ar),
+              label: const Text("AR Mode"),
+              backgroundColor: Colors.indigo,
+              foregroundColor: Colors.white,
+            ),
+          const SizedBox(height: 16),
+          FloatingActionButton(
+            heroTag: 'search',
+            onPressed: _showSearchDialog,
+            child: const Icon(Icons.search),
+          ),
+        ],
       ),
     );
   }
